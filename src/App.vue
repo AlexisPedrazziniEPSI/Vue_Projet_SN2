@@ -1,36 +1,44 @@
-<script setup>
-import { ref } from 'vue';
-import ChildComponent from './components/ChildComponent.vue';
+<template>
+  <div id="app">
+    <nav>
+      <router-link to="/">Route vers parent</router-link>
+      <router-link to="/query?message=Bonjour%20depuis%20Parent&user=Alice">
+        Route vers query avec param
+      </router-link>
+      <router-link to="/query"> Route vers query sans param </router-link>
+    </nav>
+    <router-view />
+  </div>
+</template>
 
-const parentMessage = ref('Message du parent');
-const childCounter = ref(0);
+<script>
+import { RouterLink, RouterView } from "vue-router";
 
-const handlerChildEvent = (value) => {
-  childCounter.value = value;
+export default {
+  components: {
+    RouterLink,
+    RouterView,
+  },
 };
 </script>
 
-<template>
-  <div class="parent-component">
-    <h2>Parent Component</h2>
-    <p>Message reçu : {{ initialMessage }}</p>
-    <p>Compteur : {{ childCounter }}</p>
-
-  </div>
-
-  <div class="parent-component">
-    <h1>Parent Component</h1>
-    <ChildComponent :initial-message="parentMessage" @childEvent="handlerChildEvent" />
-  </div>
-
-  <button @click="parentMessage = 'Nouveau message du parent'">Changer le message du parent</button>
-</template>
-
 <style scoped>
-.active {
-  padding: 2px solid green;
-  background-color: red;
-  border: 1px solid #666;
-  margin-top: 10px;
+#app {
+  font-family: Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-align: center;
+  color: #2d0808;
+  margin-top: 60px;
+}
+
+nav {
+  display: flex;
+  justify-content: space-around;
+  padding: 20px;
+}
+
+nav a {
+  padding: 10px;
+  border: 1px solid black;
 }
 </style>
